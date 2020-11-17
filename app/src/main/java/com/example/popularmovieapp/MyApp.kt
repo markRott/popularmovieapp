@@ -8,5 +8,6 @@ class MyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        //https://image.tmdb.org/t/p/w500/hSpm2mMbkd0hLTRWBz0zolnLAyK.jpg
     }
 }

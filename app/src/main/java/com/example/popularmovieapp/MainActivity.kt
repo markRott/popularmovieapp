@@ -2,6 +2,7 @@ package com.example.popularmovieapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.popularmovieapp.ui.PopularMovieFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

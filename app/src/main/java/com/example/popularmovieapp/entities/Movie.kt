@@ -3,7 +3,7 @@ package com.example.popularmovieapp.entities
 
 import com.google.gson.annotations.SerializedName
 
-class Movie(
+data class Movie(
     @SerializedName("popularity")
     val popularity: Double,
     @SerializedName("vote_count")
@@ -13,7 +13,7 @@ class Movie(
     @SerializedName("poster_path")
     val posterPath: String,
     @SerializedName("id")
-    val id: Int,
+    val id: Long,
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")

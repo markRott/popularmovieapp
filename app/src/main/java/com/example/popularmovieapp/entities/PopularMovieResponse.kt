@@ -3,7 +3,7 @@ package com.example.popularmovieapp.entities
 
 import com.google.gson.annotations.SerializedName
 
-class PopularMovieResponse(
+data class PopularMovieResponse(
     @SerializedName("page")
     val page: Int,
     @SerializedName("total_results")

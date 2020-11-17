@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 
+// @Singleton
+//class MainViewModel @ViewModelInject constructor(private val themeContract: ThemeContract) : ViewModel() {
 class PopularMovieFragment : Fragment() {
 
     private val movieVM: PopularMovieVM by viewModels()

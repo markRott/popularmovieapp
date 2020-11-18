@@ -17,9 +17,13 @@ class RepoModule {
 
     @Provides
     @Singleton
-    fun provideMovieDataSource(api: AppApi): MovieDataSource = MovieDataSource(api)
+    fun provideMovieDataSource(
+            api: AppApi,
+            thread: ThreadContract
+    ): MovieDataSource = MovieDataSource(api, thread)
 
     @Provides
     @Singleton
-    fun providePopularMovieRepository(movieDataSource: MovieDataSource): MoviesRxRepository = MoviesRxRepositoryImpl(movieDataSource)
+    fun providePopularMovieRepository(movieDataSource: MovieDataSource): MoviesRxRepository
+            = MoviesRxRepositoryImpl(movieDataSource)
 }

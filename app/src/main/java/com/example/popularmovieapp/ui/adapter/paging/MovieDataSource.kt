@@ -5,17 +5,19 @@ import com.example.popularmovieapp.api.AppApi
 import com.example.popularmovieapp.entities.toDomain
 import com.example.popularmovieapp.entities.ui.MovieUiData
 import com.example.popularmovieapp.entities.ui.MoviesUiData
+import com.example.popularmovieapp.thread.ThreadContract
 import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
-class MovieDataSource(private val api: AppApi) : RxPagingSource<Int, MovieUiData>() {
+class MovieDataSource(
+        private val api: AppApi,
+        private val thread: ThreadContract
+) : RxPagingSource<Int, MovieUiData>() {
 
     override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, MovieUiData>> {
         val page: Int = params.key ?: 1
         return api
                 .fetchPopularMovie(page)
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(thread.bg())
                 .map { it.toDomain() }
                 .map { toLoadResult(it) }
                 .onErrorReturn { LoadResult.Error(it) }

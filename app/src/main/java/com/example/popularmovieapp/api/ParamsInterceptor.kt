@@ -17,5 +17,4 @@ class ParamsInterceptor : Interceptor {
         req = req.newBuilder().url(newUrl).build()
         return chain.proceed(req)
     }
-
 }

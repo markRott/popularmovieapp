@@ -1,4 +1,4 @@
-package com.example.popularmovieapp
+package com.example.popularmovieapp.utils
 
 import android.content.Context
 import android.view.Gravity

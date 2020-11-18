@@ -4,10 +4,10 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.popularmovieapp.IMAGE_URL
+import com.example.popularmovieapp.utils.IMAGE_URL
 import com.example.popularmovieapp.R
 import com.example.popularmovieapp.entities.ui.MovieUiData
-import com.example.popularmovieapp.loadImage
+import com.example.popularmovieapp.utils.loadImage
 
 class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

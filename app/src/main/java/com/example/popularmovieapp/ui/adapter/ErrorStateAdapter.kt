@@ -2,15 +2,13 @@ package com.example.popularmovieapp.ui.adapter
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popularmovieapp.R
-import com.example.popularmovieapp.inflate
-import com.google.android.material.card.MaterialCardView
+import com.example.popularmovieapp.utils.inflate
 
 class ErrorStateAdapter : LoadStateAdapter<ErrorStateAdapter.LoadStateViewHolder>() {
 
@@ -21,7 +19,7 @@ class ErrorStateAdapter : LoadStateAdapter<ErrorStateAdapter.LoadStateViewHolder
         holder.bind(loadState)
     }
 
-    class LoadStateViewHolder(itemView: View, ) : RecyclerView.ViewHolder(itemView) {
+    class LoadStateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val txtErrorMessage = itemView.findViewById<AppCompatTextView>(R.id.tv_error_label)
 
@@ -29,7 +27,7 @@ class ErrorStateAdapter : LoadStateAdapter<ErrorStateAdapter.LoadStateViewHolder
             if (loadState is LoadState.Error) {
                 itemView.isVisible = true
                 txtErrorMessage.text = loadState.error.localizedMessage
-            }else {
+            } else {
                 itemView.isVisible = false
             }
         }

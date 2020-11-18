@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.example.popularmovieapp.R
 import com.example.popularmovieapp.entities.ui.MovieUiData
-import com.example.popularmovieapp.inflate
+import com.example.popularmovieapp.utils.inflate
 
 class MovieAdapter : PagingDataAdapter<MovieUiData, MovieViewHolder>(MovieDiffUtil()) {
 

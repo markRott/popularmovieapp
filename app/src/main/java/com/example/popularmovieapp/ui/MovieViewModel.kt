@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.rxjava2.cachedIn
-import com.example.popularmovieapp.APP_TAG
-import com.example.popularmovieapp.NetworkHelper
+import com.example.popularmovieapp.utils.APP_TAG
+import com.example.popularmovieapp.utils.NetworkHelper
 import com.example.popularmovieapp.data.MoviesRxRepository
 import com.example.popularmovieapp.entities.ui.MovieUiData
 import io.reactivex.Flowable
@@ -21,16 +21,18 @@ class MovieViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     private val disposable = CompositeDisposable()
+
     private val _movieMLD = MutableLiveData<PagingData<MovieUiData>>()
     val movieLD: LiveData<PagingData<MovieUiData>> get() = _movieMLD
+
     private val _updateAdapterMLD = MutableLiveData<Boolean>()
     val updateAdapterLD: LiveData<Boolean> get() = _updateAdapterMLD
 
     init {
-        start()
+        fetchMovies()
     }
 
-    fun checkNetworkConnection() {
+    fun startCheckNetworkConnection() {
         networkHelper.observeNetworkConnectivity {
             _updateAdapterMLD.value = true
         }
@@ -40,7 +42,7 @@ class MovieViewModel @ViewModelInject constructor(
         networkHelper.clearCompositeDisposable()
     }
 
-    private fun start() {
+    private fun fetchMovies() {
         disposable.add(
             fetchPopularMovie()
                 .subscribe(

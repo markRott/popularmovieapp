@@ -1,7 +1,7 @@
 package com.example.popularmovieapp.di
 
 import android.content.Context
-import com.example.popularmovieapp.NetworkHelper
+import com.example.popularmovieapp.utils.NetworkHelper
 import com.example.popularmovieapp.api.AppApi
 import com.example.popularmovieapp.data.MoviesRxRepository
 import com.example.popularmovieapp.data.MoviesRxRepositoryImpl

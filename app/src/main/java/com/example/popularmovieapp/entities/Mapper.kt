@@ -14,12 +14,9 @@ fun MovieResponseDto.toDomain(): MoviesUiData = MoviesUiData(
 
 fun MovieDto.toDomain(): MovieUiData = MovieUiData(
     id = id,
-    popularity = popularity ?: 0.0,
     posterPath = posterPath ?: "",
-    backdropPath = backdropPath ?: "",
     title = title ?: "",
-    overview = overview ?: "",
-    releaseDate = releaseDate ?: ""
+    overview = overview ?: ""
 )
 
 fun List<MovieDto>.toDomain(): List<MovieUiData> {

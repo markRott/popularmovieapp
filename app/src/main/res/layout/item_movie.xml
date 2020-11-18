@@ -6,11 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="230dp"
     app:cardCornerRadius="10dp"
-
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
-    android:layout_marginBottom="10dp"
-    app:cardElevation="3dp"
+    android:layout_marginStart="@dimen/card_margin_start"
+    android:layout_marginEnd="@dimen/card_margin_end"
+    android:layout_marginBottom="@dimen/card_margin_bottom"
+    app:cardElevation="4dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,7 +61,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_name"
             tools:text="Movie descriptionMovie description Movie description Movie description Movie description Movie descriptionMovie descriptionMovie descriptionMovie description" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

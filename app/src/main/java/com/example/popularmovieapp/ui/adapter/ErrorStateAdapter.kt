@@ -4,11 +4,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popularmovieapp.R
 import com.example.popularmovieapp.inflate
+import com.google.android.material.card.MaterialCardView
 
 class ErrorStateAdapter : LoadStateAdapter<ErrorStateAdapter.LoadStateViewHolder>() {
 
@@ -25,7 +27,10 @@ class ErrorStateAdapter : LoadStateAdapter<ErrorStateAdapter.LoadStateViewHolder
 
         fun bind(loadState: LoadState) {
             if (loadState is LoadState.Error) {
+                itemView.isVisible = true
                 txtErrorMessage.text = loadState.error.localizedMessage
+            }else {
+                itemView.isVisible = false
             }
         }
     }

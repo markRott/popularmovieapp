@@ -9,25 +9,27 @@ import com.example.popularmovieapp.thread.ThreadContract
 import io.reactivex.Single
 
 class MovieDataSource(
-        private val api: AppApi,
-        private val thread: ThreadContract
+    private val api: AppApi,
+    private val thread: ThreadContract
 ) : RxPagingSource<Int, MovieUiData>() {
 
     override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, MovieUiData>> {
         val page: Int = params.key ?: 1
         return api
-                .fetchPopularMovie(page)
-                .subscribeOn(thread.bg())
-                .map { it.toDomain() }
-                .map { toLoadResult(it) }
-                .onErrorReturn { LoadResult.Error(it) }
+            .fetchPopularMovie(page)
+            .subscribeOn(thread.bg())
+            .map { it.toDomain() }
+            .map { toLoadResult(it) }
+            .onErrorReturn {
+                LoadResult.Error(it)
+            }
     }
 
     private fun toLoadResult(data: MoviesUiData): LoadResult<Int, MovieUiData> {
         return LoadResult.Page(
-                data.results,
-                null,
-                nextKey = data.page + 1
+            data.results,
+            null,
+            nextKey = data.page + 1
         )
     }
 }

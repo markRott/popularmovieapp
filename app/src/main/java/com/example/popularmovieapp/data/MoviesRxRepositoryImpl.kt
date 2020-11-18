@@ -17,7 +17,8 @@ class MoviesRxRepositoryImpl(private val movieDataSource: MovieDataSource) : Mov
                         enablePlaceholders = true,
                         maxSize = 30,
                         prefetchDistance = 5,
-                        initialLoadSize = 40),
+                        initialLoadSize = 40
+                ),
                 pagingSourceFactory = { movieDataSource }
         ).flowable
     }

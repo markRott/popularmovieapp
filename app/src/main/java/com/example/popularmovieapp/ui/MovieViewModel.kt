@@ -2,29 +2,22 @@ package com.example.popularmovieapp.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import com.example.popularmovieapp.data.RepositoryContract
-import io.reactivex.disposables.CompositeDisposable
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.rxjava2.cachedIn
+import com.example.popularmovieapp.data.MoviesRxRepository
+import com.example.popularmovieapp.entities.ui.MovieUiData
+import io.reactivex.Flowable
 
-class MovieViewModel @ViewModelInject constructor(private val repository: RepositoryContract) : ViewModel() {
+class MovieViewModel @ViewModelInject constructor(private val repository: MoviesRxRepository) : ViewModel() {
 
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-
-    fun fetchData(page: Int) {
-        val disposable = repository
-            .fetchPopularMovie(page)
-            .subscribe(
-                { value ->
-                    println("Received: $value")
-                },
-                { error ->
-                    println("Error: $error")
-                },
-            )
-        compositeDisposable.add(disposable)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
+    fun fetchPopularMovie(): Flowable<PagingData<MovieUiData>> {
+        return repository
+                .fetchPopularMovie()
+                .map { pagingData ->
+                    println("7777 pagingData: $pagingData")
+                    pagingData
+                }
+                .cachedIn(viewModelScope)
     }
 }

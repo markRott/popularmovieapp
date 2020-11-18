@@ -1,9 +1,10 @@
 package com.example.popularmovieapp.di
 
 import com.example.popularmovieapp.api.AppApi
-import com.example.popularmovieapp.data.RepositoryContract
-import com.example.popularmovieapp.data.PopularMovieRepository
+import com.example.popularmovieapp.data.MoviesRxRepository
+import com.example.popularmovieapp.data.MoviesRxRepositoryImpl
 import com.example.popularmovieapp.thread.ThreadContract
+import com.example.popularmovieapp.ui.adapter.paging.MovieDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,10 +17,9 @@ class RepoModule {
 
     @Provides
     @Singleton
-    fun providePopularMovieRepository(
-        api: AppApi,
-        thread: ThreadContract
-    ): RepositoryContract =
-        PopularMovieRepository(api, thread)
+    fun provideMovieDataSource(api: AppApi): MovieDataSource = MovieDataSource(api)
 
+    @Provides
+    @Singleton
+    fun providePopularMovieRepository(movieDataSource: MovieDataSource): MoviesRxRepository = MoviesRxRepositoryImpl(movieDataSource)
 }

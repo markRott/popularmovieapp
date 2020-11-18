@@ -12,6 +12,7 @@ import com.example.popularmovieapp.api.AppApi
 import com.example.popularmovieapp.thread.ThreadContract
 import com.example.popularmovieapp.ui.adapter.MovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -19,24 +20,28 @@ class PopularMovieFragment : Fragment() {
 
     private val movieViewModel: MovieViewModel by viewModels()
     private val movieAdapter: MovieAdapter = MovieAdapter()
+    private val disposable = CompositeDisposable()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.frg_popular_movie, container, false)
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        movieViewModel.fetchData(1)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val rcvMovie = view.findViewById<RecyclerView>(R.id.rcv_movies)
-//        rcvMovie.adapter = movieAdapter
+        rcvMovie.adapter = movieAdapter
+
+        disposable.add(
+                movieViewModel
+                        .fetchPopularMovie()
+                        .subscribe { movieAdapter.submitData(lifecycle, it) })
+    }
+
+    override fun onDestroyView() {
+        disposable.dispose()
+        super.onDestroyView()
     }
 
     companion object {

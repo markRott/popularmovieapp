@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.popularmovieapp.R
 import com.example.popularmovieapp.api.AppApi
 import com.example.popularmovieapp.thread.ThreadContract
+import com.example.popularmovieapp.ui.adapter.ErrorStateAdapter
 import com.example.popularmovieapp.ui.adapter.MovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
@@ -31,7 +32,10 @@ class PopularMovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val rcvMovie = view.findViewById<RecyclerView>(R.id.rcv_movies)
-        rcvMovie.adapter = movieAdapter
+
+        //bind the LoadStateAdapter with the photoAdapter
+        val mergeAdapter = movieAdapter.withLoadStateFooter(ErrorStateAdapter())
+        rcvMovie.adapter = mergeAdapter
 
         disposable.add(
                 movieViewModel

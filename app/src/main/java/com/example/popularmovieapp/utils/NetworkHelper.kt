@@ -13,11 +13,6 @@ class NetworkHelper(private val context: Context, private val thread: ThreadCont
     private var hasInternet: Boolean = true
     private val disposable = CompositeDisposable()
 
-    fun clearCompositeDisposable() {
-        disposable.clear()
-        Log.d(APP_TAG, "Clear reactive network helper")
-    }
-
     fun observeNetworkConnectivity(retryAction: () -> Unit) {
         disposable.add(
             ReactiveNetwork
@@ -33,6 +28,15 @@ class NetworkHelper(private val context: Context, private val thread: ThreadCont
         )
     }
 
+    fun clearCompositeDisposable() {
+        disposable.clear()
+        Log.d(APP_TAG, "Stop reactive network helper")
+    }
+
+    /**
+     * Think about it: NetworkInfo.State.CONNECTED and NetworkInfo.State.DISCONNECTED
+     * is deprecated.
+     */
     private fun reactionToChangeState(connectivity: Connectivity, retryAction: () -> Unit) {
         when (connectivity.state()) {
             NetworkInfo.State.DISCONNECTED -> {
@@ -42,6 +46,7 @@ class NetworkHelper(private val context: Context, private val thread: ThreadCont
             NetworkInfo.State.CONNECTED -> {
                 if (!hasInternet) {
                     retryAction.invoke()
+                    Log.d(APP_TAG, "Retry load data after connect to internet")
                 }
                 hasInternet = true
                 Log.d(APP_TAG, "Network state == CONNECTED")

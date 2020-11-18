@@ -60,13 +60,13 @@ class PopularMovieFragment : Fragment() {
     }
 
     private fun subscribeToMovieData() {
-        movieViewModel.movieLD.observe(viewLifecycleOwner) {
+        movieViewModel.moviesLD.observe(viewLifecycleOwner) {
             movieAdapter.submitData(lifecycle, it)
         }
     }
 
     private fun subscribeToRetryLogic() {
-        movieViewModel.updateAdapterLD.observe(viewLifecycleOwner) {
+        movieViewModel.retryLD.observe(viewLifecycleOwner) {
             movieAdapter.retry()
             Log.d(APP_TAG, "Retry any failed load requests")
         }

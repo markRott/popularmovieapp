@@ -8,8 +8,5 @@ import retrofit2.http.Query
 interface AppApi {
 
     @GET("/3/movie/popular")
-    fun fetchPopularMovie(
-        @Query("page") page: Int
-    ): Single<MovieResponseDto>
-
+    fun fetchPopularMovie(@Query("page") page: Int): Single<MovieResponseDto>
 }

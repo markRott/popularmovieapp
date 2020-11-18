@@ -10,31 +10,31 @@ import androidx.paging.PagingData
 import androidx.paging.rxjava2.cachedIn
 import com.example.popularmovieapp.utils.APP_TAG
 import com.example.popularmovieapp.utils.NetworkHelper
-import com.example.popularmovieapp.data.MoviesRxRepository
-import com.example.popularmovieapp.entities.ui.MovieUiData
+import com.example.popularmovieapp.data.MoviesRepository
+import com.example.popularmovieapp.entities.ui.MovieItem
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 
 class MovieViewModel @ViewModelInject constructor(
-    private val repository: MoviesRxRepository,
+    private val repository: MoviesRepository,
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
     private val disposable = CompositeDisposable()
 
-    private val _movieMLD = MutableLiveData<PagingData<MovieUiData>>()
-    val movieLD: LiveData<PagingData<MovieUiData>> get() = _movieMLD
+    private val _moviesMLD = MutableLiveData<PagingData<MovieItem>>()
+    val moviesLD: LiveData<PagingData<MovieItem>> get() = _moviesMLD
 
-    private val _updateAdapterMLD = MutableLiveData<Boolean>()
-    val updateAdapterLD: LiveData<Boolean> get() = _updateAdapterMLD
+    private val _retryMLD = MutableLiveData<Boolean>()
+    val retryLD: LiveData<Boolean> get() = _retryMLD
 
     init {
-        fetchMovies()
+        fetchPopularMovie()
     }
 
     fun startCheckNetworkConnection() {
         networkHelper.observeNetworkConnectivity {
-            _updateAdapterMLD.value = true
+            _retryMLD.value = true
         }
     }
 
@@ -42,17 +42,17 @@ class MovieViewModel @ViewModelInject constructor(
         networkHelper.clearCompositeDisposable()
     }
 
-    private fun fetchMovies() {
+    private fun fetchPopularMovie() {
         disposable.add(
-            fetchPopularMovie()
+            fetch()
                 .subscribe(
-                    { data -> _movieMLD.value = data },
+                    { data -> _moviesMLD.value = data },
                     { error -> println(error) }
                 )
         )
     }
 
-    private fun fetchPopularMovie(): Flowable<PagingData<MovieUiData>> {
+    private fun fetch(): Flowable<PagingData<MovieItem>> {
         return repository
             .fetchPopularMovie()
             .cachedIn(viewModelScope)
@@ -60,6 +60,7 @@ class MovieViewModel @ViewModelInject constructor(
 
     override fun onCleared() {
         super.onCleared()
+        disposable.clear()
         Log.d(APP_TAG, "Clear MovieViewModel class")
     }
 }

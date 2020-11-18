@@ -3,8 +3,8 @@ package com.example.popularmovieapp.di
 import android.content.Context
 import com.example.popularmovieapp.utils.NetworkHelper
 import com.example.popularmovieapp.api.AppApi
-import com.example.popularmovieapp.data.MoviesRxRepository
-import com.example.popularmovieapp.data.MoviesRxRepositoryImpl
+import com.example.popularmovieapp.data.MoviesRepository
+import com.example.popularmovieapp.data.MoviesRepositoryImpl
 import com.example.popularmovieapp.thread.ThreadContract
 import com.example.popularmovieapp.ui.adapter.paging.MovieDataSource
 import dagger.Module
@@ -22,16 +22,19 @@ class RepoModule {
     @Singleton
     fun provideMovieDataSource(
         api: AppApi,
-        thread: ThreadContract
+        thread: ThreadContract,
     ): MovieDataSource = MovieDataSource(api, thread)
 
     @Provides
     @Singleton
-    fun providePopularMovieRepository(movieDataSource: MovieDataSource): MoviesRxRepository =
-        MoviesRxRepositoryImpl(movieDataSource)
+    fun providePopularMovieRepository(movieDataSource: MovieDataSource): MoviesRepository =
+        MoviesRepositoryImpl(movieDataSource)
 
     @Provides
     @Singleton
-    fun provideNetworkHelper(@ApplicationContext context: Context, thread: ThreadContract): NetworkHelper =
+    fun provideNetworkHelper(
+        @ApplicationContext context: Context,
+        thread: ThreadContract,
+    ): NetworkHelper =
         NetworkHelper(context, thread)
 }

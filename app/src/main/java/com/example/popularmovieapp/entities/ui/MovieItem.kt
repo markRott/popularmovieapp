@@ -1,6 +1,6 @@
 package com.example.popularmovieapp.entities.ui
 
-data class MovieUiData(
+data class MovieItem(
     val id: Long,
     val posterPath: String,
     val title: String,

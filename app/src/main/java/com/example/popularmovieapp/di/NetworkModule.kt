@@ -41,8 +41,9 @@ class NetworkModule {
     private fun initCallAdapterFactory(): CallAdapter.Factory = RxJava2CallAdapterFactory.create()
 
     private fun initOkHttpClient(): OkHttpClient {
-        val logging = HttpLoggingInterceptor()
-        logging.level = (HttpLoggingInterceptor.Level.BASIC)
+        val logging = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BASIC
+        }
 
         val builder = OkHttpClient.Builder()
         builder.addInterceptor(logging)

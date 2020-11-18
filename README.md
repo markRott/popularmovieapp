@@ -1,4 +1,4 @@
-**Simple application for show list of popular movie from TMDb(The Movie Database). **
+**Simple application for show list of popular movie from TMDb(The Movie Database).**
 
 **Link to youtube: https://youtu.be/Y8rdU_Vp3KQ**
 
